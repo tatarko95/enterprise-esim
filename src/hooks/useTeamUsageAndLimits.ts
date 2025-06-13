@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { initialTeamUsage, initialTeamLimits, TeamUsage, TeamLimits } from '@/data/teamUsageAndLimits';
+import { initialTeamUsage, initialTeamLimits, initialTeamMemberUsage, TeamUsage, TeamLimits, TeamMemberUsage } from '@/data/teamUsageAndLimits';
 
 export const useTeamUsageAndLimits = () => {
   const [teamUsage, setTeamUsage] = useState<TeamUsage>(initialTeamUsage);
@@ -18,5 +18,6 @@ export const useTeamUsageAndLimits = () => {
     teamLimits,
     updateTeamUsage,
     updateTeamLimits,
+    initialTeamMemberUsage,
   };
 }; 

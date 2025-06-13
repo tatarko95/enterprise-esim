@@ -18,6 +18,7 @@ import EsimGroupView from "./pages/EsimGroupView";
 import EsimGroupCreate from "./pages/EsimGroupCreate";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import ViewGroup from "./pages/ViewGroup";
 
 const queryClient = new QueryClient();
 
@@ -35,7 +36,7 @@ const App = () => (
             <Route path="/" element={<Dashboard />} />
             <Route path="/esim-codes" element={<EsimManagement />} />
             <Route path="/esim-codes/:groupId/edit" element={<EsimGroupEdit />} />
-            <Route path="/esim-codes/:groupId/view" element={<EsimGroupView />} />
+            <Route path="/esim-codes/:groupId/view" element={<ViewGroup />} />
             <Route path="/esim-codes/create" element={<EsimGroupCreate />} />
             <Route path="/usage" element={<Usage />} />
             <Route path="/team" element={<TeamSettings />} />

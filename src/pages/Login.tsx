@@ -5,30 +5,33 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { login } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    // Dummy authentication logic
-    if (email === 'user@example.com' && password === 'password') {
-      localStorage.setItem('isAuthenticated', 'true');
-      toast({
-        title: "Login Successful",
-        description: "Welcome back!",
-      });
-      navigate('/'); // Redirect to Dashboard
-    } else {
+    try {
+      const success = await login(email, password);
+      if (success) {
+        navigate('/');
+      }
+    } catch (error) {
       toast({
         title: "Login Failed",
-        description: "Invalid email or password.",
+        description: "An error occurred during login. Please try again.",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -67,7 +70,9 @@ const Login: React.FC = () => {
                 Forgot password?
               </Link>
             </div>
-            <Button type="submit" className="w-full">Login</Button>
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? 'Signing in...' : 'Login'}
+            </Button>
           </form>
         </CardContent>
       </Card>
